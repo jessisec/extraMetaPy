@@ -15,7 +15,7 @@ from colorama import Fore, Style
 
 
 # Define parser and arguments.
-parser = argparse.ArgumentParser(description=f'{Fore.RED}{Style.BRIGHT}extraMetaPy{Style.RESET_ALL}: The Python3 powered {Fore.YELLOW}google{Style.RESET_ALL} dorking and metadata extracting tool. Presented by {Fore.MAGENTA}Jessi{Style.RESET_ALL}.')
+parser = argparse.ArgumentParser(description=f'extraMetaPy: The Python3 powered google dorking and metadata extracting tool. Presented by {Fore.MAGENTA}Jessi{Style.RESET_ALL}')
 
 parser.add_argument('-d', '--domain', help=f'Target domain {Fore.RED}{Style.BRIGHT}REQUIRED{Style.RESET_ALL}', default=None, required=True)
 parser.add_argument('-o', '--output', help=f'Output file name {Style.DIM}OPTIONAL Defualt: extracted_metadata.txt{Style.RESET_ALL}', default='extracted_metadata.txt', required=False)
@@ -37,11 +37,6 @@ urllist = args.urllist
 # Create filedir if not exists
 if not os.path.exists(filedir):
     os.makedirs(filedir)
-
-
-# Coloroma print test
-#print(f'{Fore.GREEN}[+] {Fore.WHITE}{domain}{Style.RESET_ALL}')
-#print(f'{Fore.GREEN}{Style.BRIGHT}{limit}')
 
 
 # Define coloroma colors
@@ -143,6 +138,7 @@ else:
     urlsSum = sum(num is not None for num in urlsFile)
     print(f'{GREEN}{BRIGHT}[+] {NORM}{WHITE}Loaded {BRIGHT}{urlsSum}{NORM} URLs{RST}')
 
+
 # Begin file download task
 print(f'\n{CYAN}{BRIGHT}[!] {NORM}{WHITE}Starting files download task{RST}')
 time.sleep(2)
@@ -160,7 +156,7 @@ dirListing = os.listdir(filedir)
 for num in dirListing:
     if num:
         dirCount += 1
-print(f'{GREEN}{BRIGHT}[+] {NORM}{WHITE}Downloaded {BRIGHT}{dirCount}{NORM} files{RST}')
+print(f'{GREEN}{BRIGHT}[+] {NORM}{WHITE}Downloaded {BRIGHT}{dirCount}{NORM} files to {BRIGHT}{filedir}{RST}')
 
 
 # Extract metadata
@@ -170,8 +166,8 @@ o = open(output, 'a')
 with ExifTool() as e:
     for files in dirListing:
         file = filedir + files
-        print(f'{GREEN}{BRIGHT}[+] {NORM}{WHITE}Extracting metadata for {BRIGHT}{file}{RST}')
-        o.write(f'{RED}{BRIGHT}[*] {NORM}File: {WHITE}{BRIGHT}{file}{RST}\n')
+        print(f'{GREEN}{BRIGHT}[+] {NORM}{WHITE}Extracting metadata for {BRIGHT}{files}{RST}')
+        o.write(f'{RED}{BRIGHT}[*] {NORM}File: {WHITE}{BRIGHT}{files}{RST}\n')
         metadata = e.get_metadata(file)
         o.write(f'{metadata}\n\n')
 o.close()
