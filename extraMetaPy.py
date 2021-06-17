@@ -65,7 +65,7 @@ def dork(domain, ft): # Google Dork function
     query = 'site:' + domain + ' filetype:' + ft
     print(f'{GREEN}{BRIGHT}[+] {NORM}{WHITE}Dorking {BRIGHT}{domain}{RST} {WHITE}for {BRIGHT}{ft} {NORM}files{RST}')
     try:
-        for results in search(query, num_results=limit):
+        for result in search(query, num_results=limit):
             f.write(f'{result}\n')
     except:
         print(f'{RED}{BRIGHT}[X]{RST} {WHITE}Dork failed for: {BRIGHT}{ft}{RST}')
