@@ -78,7 +78,7 @@ def download_url(url,filename): # Download files function
         r = urllib.request.urlretrieve(url,filename)
         print(f'{GREEN}{BRIGHT}[+]{NORM} {WHITE}Downloading: {BRIGHT}{url}{RST}')
     except urllib.error.HTTPError as exception:
-        print(f'{RED}{BRIGHT}[x]{DIM} Download failed for:{RST} {WHITE}{BRIGHT}{url}{RST}')
+        print(f'{RED}{BRIGHT}[x]{DIM} Download failed for:{RST} {WHITE}{url}{RST}')
 
 
 #def extract_meta(file): # Extract metadata function
@@ -100,12 +100,12 @@ urlsList = urls.split('\n')
 for num in urlsList:
     if num:
         urlsCount += 1
-print(f'{GREEN}{BRIGHT}[+] {NORM}{WHITE}Scraped {BRIGHT}{urlsCount}{NORM }URLs{RST}')
+print(f'{GREEN}{BRIGHT}[+] {NORM}{WHITE}Scraped {BRIGHT}{urlsCount}{NORM} URLs{RST}')
 print(f'{GREEN}{BRIGHT}[+] {NORM}{WHITE}Scraped URLs saved in {BRIGHT}urls.txt{RST}')
 
 
 # Begin file download task
-print(f'{CYAN}{BRIGHT}[!] {NORM}{WHITE}Starting files download task{RST}')
+print(f'\n{CYAN}{BRIGHT}[!] {NORM}{WHITE}Starting files download task{RST}')
 time.sleep(2)
 with open('urls.txt') as urlsFile:
     for i in urlsFile:
@@ -116,5 +116,9 @@ with open('urls.txt') as urlsFile:
 
 
 # Count downloaded files
+dirCount = 0
 dirListing = os.listdir(filedir)
-print(f'{GREEN}{BRIGHT}[+] {NORM}{WHITE} Downloaded {BRIGHT}{dirListing}{NORM} files{RST}')
+for num in dirListing:
+    if num:
+        dirCount += 1
+print(f'{GREEN}{BRIGHT}[+] {NORM}{WHITE}Downloaded {BRIGHT}{dirCount}{NORM} files{RST}')
