@@ -228,11 +228,14 @@ else:
 
 
 # Close urls.txt file and count urls scraped
+urlsSum = 0
 if not urllist:
     f.close()
     urllist = 'urls.txt'
-    urlsFile = open(urllist, 'r')
-    urlsSum = sum(num is not None for num in urlsFile)
+    with open(urllist) as urls: # Open urllist temporarily to count
+        for url in urls:
+            if url.strip():
+                urlsSum += 1
     print(f'{GREEN}{BRIGHT}[+] {NORM}{WHITE}Scraped {BRIGHT}{urlsSum}{NORM} URLs{RST}')
     print(f'{GREEN}{BRIGHT}[+] {NORM}{WHITE}Scraped URLs saved in {BRIGHT}urls.txt{RST}')
     if nodownload:
@@ -241,20 +244,24 @@ if not urllist:
         log.close()
         exit(1)
 else:
-    urlsFile = open(urllist, 'r')
-    urlsSum = sum(num is not None for num in urlsFile)
+    with open(urllist) as urls: # Open urllist temporarily to count
+        for url in urls:
+            if url.strip():
+                urlsSum += 1
     print(f'{GREEN}{BRIGHT}[+] {NORM}{WHITE}Loaded {BRIGHT}{urlsSum}{NORM} URLs{RST}')
 
 
 # Begin file download task
 print(f'\n{CYAN}{BRIGHT}[!] {NORM}{WHITE}Starting files download task{RST}')
 time.sleep(2)
-with open(urllist) as urlsFile:
-    for i in urlsFile:
-        url = i.rstrip()
-        name = url.rsplit('/', 1)[1]
-        filename = filedir + name
-        download_url(url,filename)
+
+with open(urllist) as urls: # Open urllist temporarily to download files
+    for i in urls:
+        if i.strip():
+            url = i.rstrip()
+            name = url.rsplit('/', 1)[1]
+            filename = filedir + name
+            download_url(url,filename)
 
 
 # Count downloaded files
@@ -281,6 +288,7 @@ with ExifTool() as e:
         o.write(f'{metadata}\n\n')
         timestamp = datetime.now().strftime("%H:%M:%S")
         log.write(f'{timestamp} Metadata written for {files}\n') # Log - mdata write
+
 
 # Close out
 o.close()
