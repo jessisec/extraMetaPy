@@ -54,6 +54,15 @@ parser.add_argument('-nd', '--nodownload', help=f'Scrape only, skip downloading 
 args = parser.parse_args()
 
 
+# Set args to variables
+domain = args.domain
+output = args.output
+filedir = args.filedir
+limit = args.limit
+urllist = args.urllist
+nodownload = args.nodownload
+
+
 # Check for exiftool installed
 cache = apt.Cache()
 pkg = cache['libimage-exiftool-perl']
@@ -73,15 +82,6 @@ if not pkg.is_installed:
         else:
             print(f'{BRIGHT}Google Dork mode{DIM} requires{RST} {BRIGHT}exiftool{DIM} installed')
             exit(1)
-
-
-# Set args to variables
-domain = args.domain
-output = args.output
-filedir = args.filedir
-limit = args.limit
-urllist = args.urllist
-nodownload = args.nodownload
 
 
 # Create logfile
@@ -111,17 +111,24 @@ if not urllist:
 else:
     urlData = open(urllist, 'r')
     urlContent = urlData.readlines()
-    urlTarget = urlContent[1]
+    try:
+        urlTarget = urlContent[1]
+    except:
+        print(f'{RED}{BRIGHT}[X] {RST}{DIM}{urllist} is empty{RST}')
+        exit(1)
     target = urlparse(urlTarget).netloc
 
 
 # Display target domain and request info
 print(f'{PINK}{BRIGHT}[*] {NORM}{WHITE}Target domain: {BRIGHT}{target}{RST}')
-print(f'{PINK}{BRIGHT}[*] {NORM}{WHITE}Max results per filetype: {BRIGHT}{limit}{RST}')
+if not urllist:
+    print(f'{PINK}{BRIGHT}[*] {NORM}{WHITE}Max results per filetype: {BRIGHT}{limit}{RST}')
 timestamp = datetime.now().strftime("%H:%M:%S")
 log.write(f'{timestamp} Target set as {target}\n') # Log - target identificaiton
 if nodownload:
+    print(f'{PINK}{BRIGHT}[*] {NORM}{WHITE}Downloads disabled{RST}\n')
     log.write(f'{timestamp} Downloads disabled\n')
+print(f'{PINK}{BRIGHT}[*] {NORM}{WHITE}Downloads enabled{RST}\n')
 
 
 # Define fileTypes dictionary
