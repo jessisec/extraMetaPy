@@ -1,5 +1,6 @@
 # extraMetaPy
-The Python3 powered google dorker and metadata extractor.
+The Python3 powered google dorker and metadata extractor.  
+Use Google Dorks against a target domain to scrape URLs containing common filetypes. Download files from scraped URLs. Extract metadata from files into an output file.  
 
 ### About
 extraMetaPy has two main modes: Google Dork mode or URL list mode.  
