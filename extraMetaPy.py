@@ -56,18 +56,20 @@ args = parser.parse_args()
 
 # Check for exiftool installed
 cache = apt.Cache()
-if cache['libimage-exiftool-perl'].is_installed:
-    pass
-else:
-    print(f'{RED}{BRIGHT}[X] {WHITE}exiftool{NORM} is not installed')
-    exifInstall = input(f'Install {BRIGHT}exiftool{NORM}? (y/n){RST} ')
-    if exifInstall == 'y':
-        os.system('sudo apt update && sudo apt install libimage-exiftool-perl')
-        print(f'{GREEN}{BRIGHT}[+] {WHITE}exiftool {NORM}intalled, continuing{RST}')
-        time.sleep(2)
-    else:
-        if nodownload:
-            pass
+pkg = cache['libimage-exiftool-perl']
+if not pkg.is_installed:
+    if not nodownload:
+        print(f'{RED}{BRIGHT}[X] {WHITE}exiftool{NORM} is not installed')
+        exifInstall = input(f'Install {BRIGHT}exiftool{NORM}? (y/n){RST} ')
+        if exifInstall == 'y':
+            pkg.mark_install()
+            try:
+                cache.commit()
+                print(f'{GREEN}{BRIGHT}[+] {WHITE}exiftool{NORM} installed, continuing')
+                time.sleep(2)
+            except:
+                print(f'{RED}{BRIGHT}[X] {RST}{DIM}Failed to install {RST}{BRIGHT}exiftool{DIM}, try manually{RST}')
+                exit(1)
         else:
             print(f'{BRIGHT}Google Dork mode{DIM} requires{RST} {BRIGHT}exiftool{DIM} installed')
             exit(1)
