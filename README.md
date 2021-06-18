@@ -2,6 +2,8 @@
 The Python3 powered google dorker and metadata extractor.  
 Use Google Dorks against a target domain to scrape URLs containing common filetypes. Download files from scraped URLs. Extract metadata from files into an output file.  
 
+### NOTE: REQUIRES EXIFTOOL INSTALLED (apt install libimage-exiftool-perl)  
+
 ### About
 extraMetaPy has two main modes: Google Dork mode or URL list mode.  
 Google Dork mode: Designated by setting the `-d (--domain)` argument to a valid domain name.
