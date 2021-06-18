@@ -28,7 +28,9 @@ Ex: ./extraMetaPy.py -d yahoo.com -o yahoo_meta.txt -f files/ -l 50
 
 #### Screenshots  
 ![image](https://user-images.githubusercontent.com/28818635/122490794-c61e4b80-cfb0-11eb-8bc0-7274209167d9.png)
-  
+ 
+ Example: Google Dork mode  
 ![image](https://user-images.githubusercontent.com/28818635/122491092-61afbc00-cfb1-11eb-860e-76ba15c84c78.png)
 
+Example: URL list mode with errors  
 ![image](https://user-images.githubusercontent.com/28818635/122491264-a63b5780-cfb1-11eb-8676-4839adeec751.png)
