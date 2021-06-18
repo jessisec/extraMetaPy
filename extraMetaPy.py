@@ -111,11 +111,10 @@ if not urllist:
 else:
     urlData = open(urllist, 'r')
     urlContent = urlData.readlines()
-    try:
-        urlTarget = urlContent[1]
-    except:
+    if not urlContent: # If list is empty
         print(f'{RED}{BRIGHT}[X] {RST}{DIM}{urllist} is empty{RST}')
         exit(1)
+    urlTarget = urlContent[0]
     target = urlparse(urlTarget).netloc
 
 
