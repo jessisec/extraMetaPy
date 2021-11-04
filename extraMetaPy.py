@@ -212,7 +212,8 @@ class ExifTool(object): # Define ExifTool class
         return output[:-len(self.sentinel)]
 
     def get_metadata(self, file):
-        return json.loads(self.execute("-G", "-j", "-n", file))
+        return self.execute("-Author", "-Creator", "-LastModifiedBy", file)
+        #return json.loads(self.execute("-Author", "-Creator", "-LastModifiedBy", "-J", file))
 
 
 # Begin Google Dork task
