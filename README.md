@@ -25,7 +25,7 @@ chmod +x install.sh
 ./install.sh
 
 extraMetaPy -d <domain>
-Ex: ./extraMetaPy.py -d yahoo.com -o yahoo_meta.json -f files/ -l 50
+Ex: extraMetaPy -d yahoo.com -o yahoo_meta.json -f files/ -l 50
 ```
 
 
